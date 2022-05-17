@@ -58,12 +58,6 @@ header {
 
 .logo {
   margin-left: 30px;
-  width: 200px;
-  height: 61px;
-  background-image: url(/assets/logo-platzi-video.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
 }
 
 .menu {
@@ -104,7 +98,7 @@ ul:hover {
   cursor: pointer;
 }
 
-.menu > div > img {
+.header_menu {
   margin-right: 8px;
   width: 40px;
 }
@@ -124,7 +118,7 @@ ul:hover {
 
 .main h2 {
   color: white;
-  font-size: 30px;
+  font-size: 24px;
 }
 
 body .main .search-input {
@@ -175,23 +169,23 @@ footer a:hover {
 }
 
 .carousel {
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
   padding-left: 30px;
   width: 100%;
   position: relative;
 }
 
 .carousel > div {
-  font-size: 0;
-  white-space: nowrap;
+  display: flex;
   margin: 70px 0px;
   padding-bottom: 25px;
 }
 
 .carousel-item {
+  will-change: transform;
   border-radius: 20px;
   position: relative;
-  display: inline-block;
   width: 200px;
   height: 250px;
   margin-right: 10px;
@@ -201,6 +195,18 @@ footer a:hover {
   transform-origin: center left;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
+.carousel-item:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  transition: 450ms opacity;
+}
 /* Change opacity to all items but current */
 .carousel > div:hover .carousel-item:not(:hover) {
   opacity: 0.3;
@@ -208,11 +214,13 @@ footer a:hover {
 /* Scale up current */
 .carousel-item:hover {
   transform: scale(1.5);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 1);
+}
+.carousel-item:hover:before {
+  opacity: 1;
 }
 /* Move subsecuent item */
 .carousel-item:hover + .carousel-item {
-  margin-left: 100px;
+  transform: translateX(100px);
 }
 
 .carousel-item > img {
@@ -269,19 +277,4 @@ footer a:hover {
   color: white;
   font-size: 6px;
   margin: 0px;
-}
-
-/**
- * Media Queries
- *******************************************
- */
-@media only screen and (max-width: 600px) {
-  .main h2 {
-    font-size: 24px;
-  }
-
-  footer {
-    align-items: flex-start;
-    flex-direction: column;
-  }
 }

@@ -1,6 +1,10 @@
-import h from 'hyperscript'
-import { fetchPopular, fetchHighestRated, fetchTrending } from './api'
-import CarouselItem from './CarouselItem'
+import h from 'hyperscript';
+import lozad from "lozad";
+import { fetchPopular, fetchHighestRated, fetchTrending } from './api';
+import CarouselItem from './CarouselItem';
+import { modalListener } from "./modal/index";
+
+const observer = lozad();
 
 const SectionTitle = title => h('h3.carousel-title', title)
 
@@ -8,13 +12,13 @@ const Carousel = ({ itemsList = [] }) =>
   h(
     'section.carousel',
     h(
-      'div',
+      'div.scrollingPanel',
       itemsList.map(
         ({
           attributes: { titles, posterImage, slug, youtubeVideoId, startDate },
         }) =>
           CarouselItem({
-            imageUrl: posterImage.large,
+            imageUrl: posterImage.medium,
             title: titles.en,
             subtitle: titles.ja_jp,
             slug,
@@ -25,7 +29,7 @@ const Carousel = ({ itemsList = [] }) =>
     )
   )
 
-window.addEventListener('DOMContentLoaded', async () => {
+!(async function(document) {
   const mountReference = document.querySelector('.main').lastElementChild
 
   if (!mountReference) {
@@ -58,4 +62,18 @@ window.addEventListener('DOMContentLoaded', async () => {
         itemsList: popular,
       })
     )
-})
+    observer.observe();
+
+    document.body.addEventListener('click', (event) => {
+      const tagName = event.target.tagName
+      if(['IMG','A'].includes(tagName)) {
+        modalListener(event)
+      }
+    })
+
+    /* const allYoutubeLinks = document.querySelectorAll('.js-video-link');
+    allYoutubeLinks.forEach((link) => {
+      link.addEventListener('click', modalListener)
+    });
+ */
+})(document, window)

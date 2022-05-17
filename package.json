@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack -p",
+    "serve": "serve . "
   },
   "prettier": {
     "trailingComma": "es5",
@@ -21,14 +22,19 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "css-loader": "^5.2.6",
+    "date-fns": "^2.28.0",
     "husky": "^4.2.3",
     "hyperscript": "^2.0.2",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "lozad": "^1.16.0",
+    "modal-video": "^2.4.6",
     "prettier": "1.19.1",
     "pretty-quick": "^2.0.1",
+    "serve": "^13.0.2",
+    "style-loader": "^2.0.0",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.3"
   }
 }
